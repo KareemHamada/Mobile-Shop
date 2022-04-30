@@ -1,0 +1,56 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="{% url 'store' %}">Phone Shop</a>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="{% url 'store' %}">Home</a>
+        </li>
+
+        {% if request.user.is_superuser %}
+          <li class="nav-item">
+            <a class="nav-link" href="/adminkareem219">Admin</a>
+          </li>
+        {% endif %}
+        {% if request.user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link text-muted">{{request.user}}</a>
+            </li>
+        {% endif %}
+       
+      </ul>
+      <ul class="navbar-nav">
+        {% if request.user.is_authenticated %}
+          <li class="nav-item">
+            <a href="/accounts/logout" class="nav-link">Logout</a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a href="/accounts/login" class="nav-link">Login</a>
+          </li>
+          <li class="nav-item">
+            <a href="/accounts/signup/" class="nav-link">Register</a>
+          </li>
+        {% endif %}
+        
+        <!-- <li class="nav-item">
+          <a href="/registerPage" class="nav-link">Register</a>
+        </li> -->
+          
+        <li class="nav-item"><a href="{% url 'cart' %}">
+            <img  id="cart-icon" src="{% static 'images/cart.png' %}">
+        </a></li>
+        {% if itemsCount > 0 %}
+          <li class="nav-item"><p id="cart-total">{{itemsCount}}</p></li>
+        {% else %}
+          <li class="nav-item"><p id="cart-total">0</p></li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>

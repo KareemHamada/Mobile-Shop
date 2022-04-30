@@ -1,0 +1,27 @@
+{% extends 'main.html' %}
+{% block content %}
+    <div class="card mb-3 p-5 mb-5 mt-5" style="max-width: 1000px;">
+        <a  class="btn btn-primary mb-5" href="{% url 'store' %}">&#x2190; Continue Shopping</a>
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="{{product.imageURL}}" class="img-fluid rounded-start" alt="Product Image">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{product.name}}</h5>
+              <p class="card-text"><span class="text-primary">price :</span> ${{product.price}}</p>
+              <p class="card-text"><span class="text-primary">Seller :</span> Shop Name</p>
+              <p class="card-text"><span class="text-primary">Description : </span>{{product.description}}</p>
+              {% if request.user.is_authenticated %}
+										<button class="btn btn-primary update-cart" data-product="{{product.id}}"
+											data-action="add">Add to Cart</button>
+										{% else %}
+											<a href="/accounts/login/" class="btn btn-primary">Add to Cart</a>
+							{% endif %}
+            </div>
+          </div>
+        </div>
+    </div>
+
+{% endblock content %}
+

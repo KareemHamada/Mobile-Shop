@@ -1,0 +1,179 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+<div class="col-12">
+	<div class="box-element">
+		<a  class="btn btn-outline-primary" href="{% url 'store' %}">&#x2190; Continue Shopping</a>
+		<hr>
+		<h3><span class="text-primary">Shopping Cart</span></h3>
+		<hr>
+		{% comment %} <div class="cart-row">
+			<div style="flex:1"><span class="text-primary">Image</span></div>
+			<div style="flex:1"><p class="text-primary">PItem</p></div>
+			<div style="flex:1"><p class="text-primary">Price</p></div>
+			<div style="flex:1"><p class="text-primary">Quantity</p></div>
+			<div style="flex:1"><p class="text-primary">Total</p></div>
+		</div> {% endcomment %}
+
+		{% for item in items %}
+			<div class="cart-row">
+				<div style="flex:1"><img style="height: 50px;width:50px;" class="row-image" src="{{item.product.imageURL}}"></div>
+				<div style="flex:1"><p>{{item.product.name}}</p></div>
+				<div style="flex:1"><p><span class="text-primary">$ </span>{{item.product.price}}</p></div>
+				<div style="flex:1">
+					<p class="d-inline">{{item.quantity}}</p>
+				
+					<span data-product="{{item.product.id}}" data-action="add" class="chg-quantity update-cart d-inline">
+						<i class="fa fa-solid fa-plus text-primary"></i>
+					</span>	
+					
+					<span data-product="{{item.product.id}}" data-action="remove" class="chg-quantity update-cart d-inline">
+						<i class="fa fa-solid fa-minus text-danger"></i>
+					</span>
+				</div>
+				<div style="flex:1"><p><span class="text-primary">$ </span>{{item.totalPrice}}</p></div>
+			</div>
+		{% endfor %}
+		<h5><span class="text-primary">Items</span> :   {{itemsCount}}</h5>
+		<h5><span class="text-primary">Total</span> :   $ {{totalOrderPrice}}</h5>
+		<a class="btn btn-outline-primary mb-3" href="{% url 'checkout' %}">Checkout &#x2192;</a>
+	</div>
+</div>
+
+	{% comment %} <div class="row">
+		<div class="col-12 mb-5 mt-5">
+			<a class="btn btn-outline-primary" href="{% url 'store' %}">&#x2190; Continue Shopping</a>
+		</div>
+		<div class="row col-12 shadow p-5 mb-5 mt-5 rounded w-100">
+			<div class="col-lg-12">
+				<div><h1>Shopping Cart</h1></div>
+				<br>
+				<br>
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">Image</th>
+								<th scope="col">Item</th>
+								<th scope="col">Price</th>
+								<th scope="col">Quantity</th>
+								<th scope="col">Total</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for item in items %}
+								<tr>
+									<td><img class="row-image" style="height:100px;width:100px;" src="{{item.product.imageURL}}"></td>
+									<td>{{item.product.name}}</td>
+									<td>${{item.product.price|floatformat:2}}</td>
+									<td>
+										<p class="quantity">{{item.quantity}}</p>
+										<div class="quantity">
+											<img data-product="{{item.product.id}}" data-action="add" class="chg-quantity update-cart" src="{% static  'images/arrow-up.png' %}">
+											
+											<img data-product="{{item.product.id}}" data-action="remove" class="chg-quantity update-cart" src="{% static  'images/arrow-down.png' %}">
+										</div>
+									</td>
+									<td>${{item.totalPrice}}</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+	
+				
+				<div class="float-end mt-5">
+					<h5><span class="text-primary">Items</span> :   {{itemsCount}}</h5>
+					<h5><span class="text-primary">Total</span> :   ${{totalOrderPrice}}</h5>
+					<a href="{% url 'checkout' %}" class="btn btn-primary" >Checkout</a>
+				</div>
+			</div>
+		</div>
+	</div> {% endcomment %}
+	
+	{% comment %} <div class="row">
+		<div class="col-lg-12">
+			<div class="box-element">
+				<a  class="btn btn-outline-primary" href="{% url 'store' %}">&#x2190; Continue Shopping</a>
+				<br>
+				<br>
+				<table class="table">
+					<tr>
+						<th><h5>Items: <strong>{{itemsCount}}</strong></h5></th>
+						<th><h5>Total:<strong> ${{totalOrderPrice}}</strong></h5></th>
+						<th>
+							<a  style="float:right; margin:5px;" class="btn btn-primary" href="{% url 'checkout' %}">Checkout</a>
+						</th>
+					</tr>
+				</table>
+
+			</div>
+
+			<br>
+			<div class="box-element">
+				<div class="cart-row">
+					<div style="flex:2"></div>
+					<div style="flex:2"><strong>Item</strong></div>
+					<div style="flex:1"><strong>Price</strong></div>
+					<div style="flex:1"><strong>Quantity</strong></div>
+					<div style="flex:1"><strong>Total</strong></div>
+				</div>
+				{% for item in items %}
+				<div class="cart-row">
+					<div style="flex:2"><img class="row-image" src="{{item.product.imageURL}}"></div>
+					<div style="flex:2"><p>{{item.product.name}}</p></div>
+					<div style="flex:1"><p>${{item.product.price|floatformat:2}}</p></div>
+					<div style="flex:1">
+						<p class="quantity">{{item.quantity}}</p>
+							<div class="quantity">
+								<img data-product="{{item.product.id}}" data-action="add" class="chg-quantity update-cart" src="{% static  'images/arrow-up.png' %}">
+								
+								<img data-product="{{item.product.id}}" data-action="remove" class="chg-quantity update-cart" src="{% static  'images/arrow-down.png' %}">
+							</div>
+					</div>
+					<div style="flex:1"><p>${{item.totalPrice}}</p></div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div> {% endcomment %}
+{% endblock content %}
+
+
+
+{% comment %} <table class="table">
+	<thead>
+	  <tr>
+		<th scope="col">image</th>
+		<th scope="col">First</th>
+		<th scope="col">Last</th>
+		<th scope="col">Handle</th>
+		<th scope="col">Handle</th>
+	  </tr>
+	</thead>
+	<tbody>
+	  <tr>
+		<td>Mark</td>
+		<td>Otto</td>
+		<td>@mdo</td>
+		<td>Otto</td>
+		<td>@mdo</td>
+	  </tr>
+	  <tr>
+		<td>Jacob</td>
+		<td>Thornton</td>
+		<td>@fat</td>
+		<td>Thornton</td>
+		<td>@fat</td>
+	  </tr>
+	  <tr>
+		<th scope="row">3</th>
+		<td>Larry</td>
+		<td>the Bird</td>
+		<td>@twitter</td>
+		<td>the Bird</td>
+		<td>@twitter</td>
+	  </tr>
+	</tbody>
+  </table> {% endcomment %}
